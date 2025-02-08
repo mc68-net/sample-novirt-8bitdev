@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+trap 'ec=$?; echo 1>&2 "INTERNAL ERROR: ec=$ec line=$LINENO cmd=$BASH_COMMAND";
+      exit $ec;' ERR
+
+#   XXX EXPLAIN THIS
+export T8_PROJDIR=$(cd "$(dirname "$0")" && pwd -P)
+
+#   We expect that $PATH, via either standard system-installed-packages
+#   or an already-activated virtualenv, includes a bin/ directory
+#   with t8setup.bash in it.
+. t8setup.bash
